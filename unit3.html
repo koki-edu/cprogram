@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Scenario: If-Else ทางแยกตัดสินใจ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!--
+    CONFIRMATION: NEITHER Mermaid JS NOR SVG were used anywhere in the output.
+    PALETTE: Pink Pastel (#FFD1DC, #FFB7C5, #F8C8DC, #B19CD9, #FF9999, #FFF5F7)
+    PLAN SUMMARY:
+    - Introduction: Set the scene as a Movie Ticket Kiosk.
+    - Interactive Element: A slider/input to change "Age" and see the code logic update in real-time.
+    - Visual Logic Flow: Using Tailwind-styled boxes to represent the "If" and "Else" paths.
+    - Takeaway: Clear explanation of how the computer 'decides' based on the input.
+    -->
+    <style>
+        body { font-family: 'Noto Sans Thai', sans-serif; background-color: #FFF5F7; color: #5D4D50; }
+        .logic-path { transition: all 0.3s ease; }
+        .active-path { border: 4px solid #FF9999; transform: scale(1.02); background-color: white; box-shadow: 0 10px 15px -3px rgba(255, 153, 153, 0.3); }
+        .inactive-path { opacity: 0.5; filter: grayscale(0.5); }
+        input[type=range] { accent-color: #FFB7C5; }
+    </style>
+</head>
+<body class="antialiased pb-20">
+
+    <header class="bg-[#FFB7C5] text-white py-10 px-6 shadow-md mb-8 border-b-8 border-[#FFD1DC]">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="text-6xl mb-4">🎟️ 🚦</div>
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">บทที่ 3: "ทางแยกตัดสินใจ"</h1>
+            <p class="text-lg opacity-90">ลองสวมบทบาทเป็นตู้ขายตั๋วหนังที่ต้องเช็กอายุผู้ชม!</p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4">
+
+        <section class="bg-white rounded-2xl shadow-sm p-6 md:p-8 mb-8 border border-[#FFE1E9]">
+            <h2 class="text-2xl font-bold text-[#8E6E75] mb-4">🤖 สถานการณ์: ตรวจสอบอายุเข้าชมหนังผี</h2>
+            <p class="text-lg mb-6">
+                หนังเรื่องนี้ถูกจัดเรตไว้ที่ <strong>15+</strong> หน้าที่ของคุณคือสร้างเงื่อนไขว่า 
+                <span class="text-[#FF9999] font-bold">ถ้า (if)</span> อายุถึงให้เข้าได้ 
+                <span class="text-[#B19CD9] font-bold">ถ้าไม่ใช่อย่างนั้น (else)</span> ให้แจ้งเตือนว่าอายุไม่ถึง
+            </p>
+
+            <div class="bg-[#FFF5F7] p-6 rounded-xl border border-[#FFD1DC] text-center mb-8">
+                <label for="age-slider" class="block text-xl font-bold text-[#5D4D50] mb-4">
+                    ลองปรับอายุผู้ชม: <span id="age-display" class="text-3xl text-[#FF9999]">12</span> ปี
+                </label>
+                <input type="range" id="age-slider" min="5" max="30" value="12" class="w-full h-3 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                <div class="flex justify-between text-sm text-gray-500 mt-2">
+                    <span>เด็ก (5 ปี)</span>
+                    <span>ผู้ใหญ่ (30 ปี)</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                <!-- If Path -->
+                <div id="if-path" class="logic-path p-6 rounded-2xl border-2 border-dashed border-[#FFB7C5] flex flex-col items-center text-center">
+                    <div class="text-4xl mb-3">✅</div>
+                    <h3 class="text-xl font-bold text-[#FFB7C5] mb-2">เงื่อนไข: if (age >= 15)</h3>
+                    <p class="text-gray-600 mb-4">เมื่ออายุ 15 ปีขึ้นไป</p>
+                    <div class="bg-green-100 text-green-700 px-4 py-2 rounded-full font-bold">
+                        ผลลัพธ์: "ยินดีด้วย คุณเข้าชมได้"
+                    </div>
+                </div>
+
+                <!-- Else Path -->
+                <div id="else-path" class="logic-path p-6 rounded-2xl border-2 border-dashed border-[#B19CD9] flex flex-col items-center text-center">
+                    <div class="text-4xl mb-3">❌</div>
+                    <h3 class="text-xl font-bold text-[#B19CD9] mb-2">เงื่อนไข: else</h3>
+                    <p class="text-gray-600 mb-4">เมื่อเงื่อนไขข้างบนไม่เป็นจริง</p>
+                    <div class="bg-red-100 text-red-700 px-4 py-2 rounded-full font-bold">
+                        ผลลัพธ์: "ขออภัย อายุของคุณไม่ถึง"
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-[#2F4858] rounded-2xl p-6 md:p-8 text-white shadow-xl">
+            <h3 class="text-xl font-bold mb-4 text-[#FFB7C5]">💻 โค้ดที่เกิดขึ้นเบื้องหลัง (Real-time Code)</h3>
+            <div class="bg-[#1A2A35] p-6 rounded-xl font-mono text-sm md:text-lg border border-gray-700 leading-relaxed">
+                <div id="code-if" class="py-1">
+                    <span class="text-[#FF9999]">if</span> (age >= <span class="text-[#F6AE2D]">15</span>) {
+                </div>
+                <div id="code-if-body" class="ml-8 text-[#86BBD8]">
+                    printf(<span class="text-green-300">"Welcome to the cinema!"</span>);
+                </div>
+                <div class="py-1">
+                    } <span class="text-[#B19CD9]">else</span> {
+                </div>
+                <div id="code-else-body" class="ml-8 text-[#86BBD8]">
+                    printf(<span class="text-red-300">"Sorry, you are too young."</span>);
+                </div>
+                <div class="py-1">
+                    }
+                </div>
+            </div>
+            
+            <div class="mt-6 flex items-center bg-[#33658A] bg-opacity-30 p-4 rounded-lg">
+                <span class="text-2xl mr-3">💡</span>
+                <p class="text-sm opacity-90">
+                    <strong>คำอธิบาย:</strong> คอมพิวเตอร์จะวิ่งไปตามเส้นทางที่ "เป็นจริง" เพียงเส้นเดียวเท่านั้น เมื่ออายุเปลี่ยนไป เส้นทางของกระแสข้อมูลก็จะเปลี่ยนตามทันที!
+                </p>
+            </div>
+        </section>
+
+        <div class="mt-10 text-center">
+            <button onclick="window.location.reload()" class="bg-[#FFB7C5] hover:bg-[#FF9999] text-white font-bold py-3 px-10 rounded-full shadow-lg transition-all">
+                🔄 เริ่มการจำลองใหม่
+            </button>
+        </div>
+
+    </main>
+
+    <script>
+        const slider = document.getElementById('age-slider');
+        const display = document.getElementById('age-display');
+        const ifPath = document.getElementById('if-path');
+        const elsePath = document.getElementById('else-path');
+        const codeIf = document.getElementById('code-if');
+        const codeIfBody = document.getElementById('code-if-body');
+        const codeElseBody = document.getElementById('code-else-body');
+
+        function updateUI(age) {
+            display.innerText = age;
+            
+            if (age >= 15) {
+                // If path active
+                ifPath.classList.add('active-path');
+                ifPath.classList.remove('inactive-path');
+                elsePath.classList.add('inactive-path');
+                elsePath.classList.remove('active-path');
+                
+                // Highlight Code
+                codeIf.style.backgroundColor = 'rgba(255, 153, 153, 0.2)';
+                codeIfBody.style.backgroundColor = 'rgba(0, 255, 0, 0.1)';
+                codeElseBody.style.backgroundColor = 'transparent';
+            } else {
+                // Else path active
+                elsePath.classList.add('active-path');
+                elsePath.classList.remove('inactive-path');
+                ifPath.classList.add('inactive-path');
+                ifPath.classList.remove('active-path');
+                
+                // Highlight Code
+                codeIf.style.backgroundColor = 'transparent';
+                codeIfBody.style.backgroundColor = 'transparent';
+                codeElseBody.style.backgroundColor = 'rgba(255, 0, 0, 0.1)';
+            }
+        }
+
+        slider.addEventListener('input', (e) => {
+            updateUI(e.target.value);
+        });
+
+        // Initialize
+        updateUI(12);
+    </script>
+</body>
+</html>
