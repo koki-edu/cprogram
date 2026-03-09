@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: ถอดรหัสโครงสร้างภาษาซี (C Structure)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!--
+    CONFIRMATION: NEITHER Mermaid JS NOR SVG were used anywhere in the output.
+    PALETTE: Pink Pastel (#FFD1DC, #FFB7C5, #F8C8DC, #B19CD9, #FF9999, #FFF5F7)
+    PLAN SUMMARY:
+    - Introduction: Establish the cooking analogy with a vibrant header.
+    - Section 1 (Data Overview): Visualize the conceptual composition of a C program using a Donut Chart.
+    - Section 2 (In-Depth Analysis): Side-by-side comparison cards of cooking steps vs C syntax.
+    - Section 3 (Conclusion): Complete visual code block summary.
+    - Section 4: Interactive knowledge check (Quiz).
+    VISUALIZATION CHOICES:
+    - Data Point: Conceptual Weight of C Program Components -> Goal: Compare/Composition -> Chosen: Donut Chart (Chart.js) -> Justification: Shows parts of a whole effectively without SVG.
+    - Data Point: Step-by-step Analogy -> Goal: Organize/Compare -> Chosen: CSS Grid/Flexbox Cards -> Justification: Structured textual comparison without SVG/Mermaid.
+    -->
+    <style>
+        body { font-family: 'Noto Sans Thai', sans-serif; background-color: #FFF5F7; color: #5D4D50; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; margin-left: auto; margin-right: auto; height: 350px; max-height: 400px; }
+        @media (max-width: 768px) { .chart-container { height: 280px; } }
+        .analogy-card { transition: transform 0.2s ease-in-out; border-color: #FFE1E9; }
+        .analogy-card:hover { transform: translateY(-5px); }
+        .bg-pastel-pink { background-color: #FFB7C5; }
+        .text-pastel-dark { color: #8E6E75; }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-[#FFB7C5] text-white py-12 px-6 shadow-md mb-10 border-b-8 border-[#FFD1DC]">
+        <div class="max-w-5xl mx-auto text-center">
+            <div class="text-6xl mb-4">👩‍🍳 🎀</div>
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">ถอดรหัสโครงสร้างภาษาซี</h1>
+            <h2 class="text-xl md:text-2xl font-semibold opacity-90">บทที่ 1: "Hello World!" — จากเมนูไข่เจียว สู่โปรแกรมแรกของคุณ</h2>
+            <p class="mt-6 text-lg max-w-3xl mx-auto font-light leading-relaxed bg-[#F8C8DC] bg-opacity-40 p-4 rounded-xl border border-white border-opacity-40">
+                การเขียนโปรแกรมภาษาซีก็เหมือนกับการทำอาหารตามสูตรครับ เราต้องเตรียมอุปกรณ์ และทำตามขั้นตอนที่กำหนดไว้ คอมพิวเตอร์ถึงจะเสิร์ฟ "ผลลัพธ์" ออกมาให้เราได้!
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+
+        <section class="mb-16 bg-white rounded-2xl shadow-sm p-6 md:p-10 border-l-8 border-[#FFB7C5]">
+            <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#8E6E75]">📊 ภาพรวมส่วนผสมของโปรแกรมแรก</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+                <div>
+                    <p class="text-lg leading-relaxed mb-4 text-[#5D4D50]">
+                        ก่อนที่เราจะลงลึกถึงแต่ละบรรทัด ลองมาดู <strong>"สัดส่วนความสำคัญ"</strong> ในเชิงแนวคิดของการเขียนโปรแกรมพื้นฐานกันก่อนครับ ในการสร้างโปรแกรม 1 โปรแกรม เราต้องแบ่งพลังงานไปกับส่วนประกอบต่างๆ
+                    </p>
+                    <p class="text-lg leading-relaxed text-[#5D4D50] mb-4">
+                        กราฟโดนัทด้านขวามือแสดงให้เห็นว่า โครงสร้างหลักอย่าง <span class="font-bold text-[#FF9999]">ฟังก์ชันหลัก (Main Function)</span> และ <span class="font-bold text-[#FFB7C5]">คำสั่งแสดงผล (printf)</span> เป็นส่วนที่เราโฟกัสและใช้งานมากที่สุด เปรียบเสมือนขั้นตอนการผัดไข่และการจัดจานที่เป็นหัวใจหลักของมื้ออาหาร
+                    </p>
+                    <div class="bg-[#FFF5F7] p-4 rounded-lg border border-[#FFE1E9] mt-6">
+                        <strong class="text-[#8E6E75]">💡 ข้อสังเกต:</strong> แม้ "ส่วนหัว" หรือ "เครื่องหมายปิดท้าย" จะดูเป็นส่วนเล็กๆ แต่ถ้าขาดไป โปรแกรม(หรืออาหารจานนี้) จะพังและเสิร์ฟไม่ได้เลยครับ!
+                    </div>
+                </div>
+                <div class="w-full flex justify-center bg-[#FFF5F7] rounded-xl p-4 border border-[#FFE1E9] shadow-inner">
+                    <div class="chart-container">
+                        <canvas id="structureChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center text-[#FF9999]">🍰 เปรียบเทียบขั้นตอน: ในครัว VS ในโค้ด</h3>
+            
+            <div class="grid grid-cols-1 gap-8">
+                
+                <div class="analogy-card bg-white rounded-2xl shadow-sm overflow-hidden border flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-6 md:p-8 bg-[#FFD1DC] bg-opacity-30 flex flex-col justify-center">
+                        <div class="text-4xl mb-3">🧺</div>
+                        <h4 class="text-xl font-bold text-[#8E6E75] mb-2">1. การเตรียมอุปกรณ์และเครื่องปรุง</h4>
+                        <p class="text-lg"><strong>ในครัว:</strong> คุณต้องหยิบกระทะ ตะหลิว และน้ำมันออกมาเตรียมไว้ก่อนเริ่มทำอาหาร</p>
+                    </div>
+                    <div class="md:w-1/2 p-6 md:p-8 bg-white flex flex-col justify-center">
+                        <h4 class="text-xl font-bold text-[#5D4D50] mb-3">ส่วนหัว (Header Files)</h4>
+                        <div class="bg-[#F8C8DC] text-[#5D4D50] font-mono p-4 rounded-lg text-lg mb-3 shadow-inner border border-[#FFD1DC]">
+                            #include &lt;stdio.h&gt;
+                        </div>
+                        <p class="text-base text-gray-600"><strong>อธิบาย:</strong> `stdio.h` ย่อมาจาก Standard Input/Output เป็นชุดเครื่องมือมาตรฐานที่ช่วยให้คอมพิวเตอร์ "รับค่า" และ "แสดงผล" ได้</p>
+                    </div>
+                </div>
+
+                <div class="analogy-card bg-white rounded-2xl shadow-sm overflow-hidden border flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-6 md:p-8 bg-[#FFB7C5] bg-opacity-20 flex flex-col justify-center">
+                        <div class="text-4xl mb-3">🍳</div>
+                        <h4 class="text-xl font-bold text-[#8E6E75] mb-2">2. ขั้นตอนการปรุง (The Recipe)</h4>
+                        <p class="text-lg"><strong>ในครัว:</strong> ขั้นตอนที่ 1... 2... 3... ที่เขียนไว้ในสมุดจดสูตรอาหาร เป็นตัวบอกว่าต้องทำอะไรตอนไหน</p>
+                    </div>
+                    <div class="md:w-1/2 p-6 md:p-8 bg-white flex flex-col justify-center">
+                        <h4 class="text-xl font-bold text-[#5D4D50] mb-3">ฟังก์ชันหลัก (Main Function)</h4>
+                        <div class="bg-[#F8C8DC] text-[#5D4D50] font-mono p-4 rounded-lg text-lg mb-3 shadow-inner border border-[#FFD1DC]">
+                            int main() { ... }
+                        </div>
+                        <p class="text-base text-gray-600"><strong>อธิบาย:</strong> นี่คือ "หัวใจ" ของโปรแกรม คอมพิวเตอร์จะมองหาคำว่า `main` เป็นอันดับแรก เพื่อดูว่าต้องเริ่มทำงานที่ตรงไหน ถ้าไม่มีเชฟก็เริ่มทำไม่ถูก</p>
+                    </div>
+                </div>
+
+                <div class="analogy-card bg-white rounded-2xl shadow-sm overflow-hidden border flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-6 md:p-8 bg-[#FF9999] bg-opacity-10 flex flex-col justify-center">
+                        <div class="text-4xl mb-3">🧁</div>
+                        <h4 class="text-xl font-bold text-[#FF9999] mb-2">3. การจัดจานเสิร์ฟ</h4>
+                        <p class="text-lg"><strong>ในครัว:</strong> เมื่อปรุงเสร็จแล้ว เราก็ต้องตักไข่เจียวใส่จานแล้วยื่นให้ลูกค้าได้เห็นและชิม</p>
+                    </div>
+                    <div class="md:w-1/2 p-6 md:p-8 bg-white flex flex-col justify-center">
+                        <h4 class="text-xl font-bold text-[#5D4D50] mb-3">คำสั่งแสดงผล (Output)</h4>
+                        <div class="bg-[#F8C8DC] text-[#5D4D50] font-mono p-4 rounded-lg text-lg mb-3 shadow-inner border border-[#FFD1DC]">
+                            printf("Hello, World!");
+                        </div>
+                        <p class="text-base text-gray-600"><strong>อธิบาย:</strong> `printf` คือคำสั่ง "สั่งพิมพ์" สิ่งที่อยู่ในเครื่องหมายคำพูด (วงเล็บ) จะปรากฏแสดงผลขึ้นมาบนหน้าจอทันที</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="analogy-card bg-white rounded-2xl shadow-sm overflow-hidden border flex flex-col">
+                        <div class="p-6 bg-[#FFF5F7] flex flex-col justify-center border-b border-[#FFE1E9]">
+                            <div class="text-4xl mb-2">🛑</div>
+                            <h4 class="text-lg font-bold text-[#8E6E75] mb-1">4. จุดจบของขั้นตอน</h4>
+                            <p class="text-sm"><strong>ในครัว:</strong> การวางมีดลง หรือขีดถูกหลังทำขั้นตอนนั้นๆ เสร็จ เพื่อเตรียมทำขั้นต่อไป</p>
+                        </div>
+                        <div class="p-6 bg-white flex-grow">
+                            <h4 class="text-lg font-bold text-[#FFB7C5] mb-2">เครื่องหมายปิดท้าย</h4>
+                            <div class="text-4xl text-center font-bold text-[#FF9999] mb-3 bg-[#FFF5F7] p-2 rounded shadow-sm border border-[#FFE1E9]">;</div>
+                            <p class="text-sm text-gray-600"><strong>อธิบาย:</strong> Semicolon ขาดไม่ได้! มันคือจุด (Full Stop) ที่บอกว่าคำสั่งบรรทัดนี้สิ้นสุดแล้ว โปรแกรมถึงจะไปบรรทัดต่อไปได้</p>
+                        </div>
+                    </div>
+
+                    <div class="analogy-card bg-white rounded-2xl shadow-sm overflow-hidden border flex flex-col">
+                        <div class="p-6 bg-[#FFF5F7] flex flex-col justify-center border-b border-[#FFE1E9]">
+                            <div class="text-4xl mb-2">💖</div>
+                            <h4 class="text-lg font-bold text-[#8E6E75] mb-1">5. ปิดแก๊ส เก็บครัว</h4>
+                            <p class="text-sm"><strong>ในครัว:</strong> การเช็กความเรียบร้อยรอบสุดท้าย แล้วบอกว่า "เมนูนี้สำเร็จแล้วครับ!"</p>
+                        </div>
+                        <div class="p-6 bg-white flex-grow">
+                            <h4 class="text-lg font-bold text-[#FFB7C5] mb-2">การจบการทำงาน</h4>
+                            <div class="bg-[#F8C8DC] text-[#5D4D50] font-mono p-2 rounded-lg text-center mb-3 shadow-inner border border-[#FFD1DC]">return 0;</div>
+                            <p class="text-sm text-gray-600"><strong>อธิบาย:</strong> เลข `0` เป็นการส่งข้อความบอกระบบปฏิบัติการว่า "โปรแกรมทำงานเสร็จสิ้นสมบูรณ์แบบ ไม่มีข้อผิดพลาดจ้า"</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="mb-16 bg-[#F8C8DC] rounded-3xl shadow-lg p-6 md:p-12 text-[#5D4D50] relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-[#FFB7C5] rounded-full mix-blend-multiply filter blur-3xl opacity-40 transform translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-[#FFD1DC] rounded-full mix-blend-multiply filter blur-3xl opacity-50 transform -translate-x-1/2 translate-y-1/2"></div>
+            
+            <div class="relative z-10">
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 text-[#8E6E75]">💡 สรุปโครงสร้าง (Visual Code Summary)</h3>
+                <p class="text-lg mb-6 opacity-90">เมื่อนำส่วนผสมทั้งหมดมารวมกันในกระทะ เราจะได้หน้าตาของ Code ที่พร้อมทำงานแบบนี้ครับ:</p>
+                
+                <div class="bg-[#FFF5F7] p-6 md:p-8 rounded-xl font-mono text-sm md:text-lg overflow-x-auto shadow-inner border border-[#FFE1E9]">
+                    <div class="flex flex-col gap-2">
+                        <div class="text-[#B19CD9]">#include &lt;stdio.h&gt;    <span class="text-gray-400 italic ml-2 md:ml-8">// 1. หยิบอุปกรณ์ (Input/Output)</span></div>
+                        <br>
+                        <div class="text-[#FF9999]">int main() {          <span class="text-gray-400 italic ml-2 md:ml-8">// 2. เริ่มต้นขั้นตอนการปรุง</span></div>
+                        <div class="text-[#5D4D50] ml-8 mt-2">
+                            <span class="text-[#FFB7C5] font-bold">printf</span>("Hello!"); <span class="text-gray-400 italic ml-2 md:ml-8">// 3. จัดจานเสิร์ฟคำว่า Hello</span>
+                        </div>
+                        <div class="text-[#B19CD9] ml-8 mt-4">
+                            return 0;         <span class="text-gray-400 italic ml-2 md:ml-8">// 4. ปิดครัวอย่างสวยงาม</span>
+                        </div>
+                        <div class="text-[#FF9999] mt-2">}                     <span class="text-gray-400 italic ml-2 md:ml-8">// 5. จบสูตรอาหาร</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gradient-to-r from-[#FFB7C5] to-[#FFD1DC] rounded-2xl p-8 text-white shadow-md text-center">
+            <h3 class="text-2xl font-bold mb-4">🎯 กิจกรรมตรวจสอบความเข้าใจท้ายบท</h3>
+            <p class="text-lg mb-6 max-w-2xl mx-auto">
+                ถ้าคุณต้องการเปลี่ยนเมนูจากหน้าจอที่แสดงคำว่า <strong>"Hello!"</strong> ไปเป็นชื่อเล่นของคุณเอง คุณต้องเข้าไปแก้ไขคำสั่งที่ <strong>"ส่วนประกอบ"</strong> หมายเลขอะไร?
+            </p>
+            <div class="inline-block relative">
+                <button onclick="document.getElementById('answer').classList.toggle('hidden')" class="bg-[#8E6E75] hover:bg-[#5D4D50] text-white font-bold py-3 px-8 rounded-full shadow-md transition duration-300">
+                    คลิกเพื่อดูเฉลย
+                </button>
+                <div id="answer" class="hidden mt-6 bg-white text-[#8E6E75] p-4 rounded-xl shadow-xl border-2 border-[#FFB7C5] font-bold text-xl animate-bounce">
+                    ✨ เฉลย: หมายเลข 3 - คำสั่ง printf("..."); นั่นเอง!
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="text-center py-8 text-[#8E6E75] font-light text-sm">
+        <p>หลักสูตร Microlearning: C Programming ปูพื้นฐานฉบับย่อยง่าย</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const rawLabels = [
+                '1. ส่วนหัว (Header Files)', 
+                '2. ฟังก์ชันหลัก (Main Function)', 
+                '3. คำสั่งแสดงผล (printf)', 
+                '4. เครื่องหมายปิดท้าย (Semicolon)', 
+                '5. การจบการทำงาน (Return)'
+            ];
+
+            const processLabels = (labels) => {
+                return labels.map(label => {
+                    if (label.length > 16) {
+                        const words = label.split(' ');
+                        let lines = [];
+                        let currentLine = '';
+                        for (let word of words) {
+                            if ((currentLine + word).length > 16) {
+                                if (currentLine) lines.push(currentLine.trim());
+                                currentLine = word + ' ';
+                            } else {
+                                currentLine += word + ' ';
+                            }
+                        }
+                        if (currentLine) lines.push(currentLine.trim());
+                        return lines;
+                    }
+                    return label;
+                });
+            };
+
+            const wrappedLabels = processLabels(rawLabels);
+            const dataValues = [15, 25, 30, 15, 15];
+            const backgroundColors = ['#FFD1DC', '#FFB7C5', '#FF9999', '#F8C8DC', '#B19CD9'];
+
+            const ctx = document.getElementById('structureChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: wrappedLabels,
+                    datasets: [{
+                        label: 'สัดส่วนเชิงแนวคิด (%)',
+                        data: dataValues,
+                        backgroundColor: backgroundColors,
+                        borderWidth: 2,
+                        borderColor: '#FFFFFF',
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    layout: {
+                        padding: 10
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                font: {
+                                    family: "'Noto Sans Thai', sans-serif",
+                                    size: 14
+                                },
+                                color: '#5D4D50',
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(93, 77, 80, 0.9)',
+                            titleFont: {
+                                family: "'Noto Sans Thai', sans-serif",
+                                size: 14
+                            },
+                            bodyFont: {
+                                family: "'Noto Sans Thai', sans-serif",
+                                size: 14
+                            },
+                            padding: 12,
+                            callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
